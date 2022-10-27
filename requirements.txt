@@ -9,6 +9,6 @@ pycodestyle==2.9.1
 pylint==2.15.5
 toml==0.10.2
 tomli==2.0.1
-tomlkit==0.11.5
+tomlkit==0.11.6
 typing_extensions==4.4.0
 wrapt==1.14.1
