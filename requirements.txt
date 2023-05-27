@@ -10,5 +10,5 @@ pylint==2.15.10
 toml==0.10.2
 tomli==2.0.1
 tomlkit==0.11.8
-typing_extensions==4.6.1
+typing_extensions==4.6.2
 wrapt==1.15.0
