@@ -1,4 +1,4 @@
-astroid==3.0.1
+astroid==3.0.2
 autopep8==2.0.4
 dill==0.3.7
 isort==5.13.0
