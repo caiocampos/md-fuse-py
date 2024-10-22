@@ -3,7 +3,7 @@ Módulo para processar os dados e gerar o arquivo final
 """
 
 from .configuration import load as config_load
-from .file import generate_text, write_text
+from .file import generate_text, generate_from_template, write_text
 
 
 def process(conf_file_path: str):
@@ -11,6 +11,20 @@ def process(conf_file_path: str):
     Função para processar os dados e gerar o arquivo final
     """
     conf = config_load(conf_file_path)
+
+    for file_conf in conf.template_files:
+        print(f"Processando {file_conf.name}")
+        text = generate_from_template(
+            conf.input_folder, file_conf.input, file_conf.parameters
+        )
+        if text:
+            print("Arquivos lidos com sucesso!")
+        else:
+            continue
+
+        res = write_text(conf.input_folder, file_conf.output, text)
+        if res:
+            print(f"Arquivo {res} gravado com sucesso!")
 
     for file_conf in conf.files:
         print(f"Processando {file_conf.name}")
