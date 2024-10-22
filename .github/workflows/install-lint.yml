@@ -1,0 +1,23 @@
+name: Install & Lint
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install the latest version of rye
+      uses: eifinger/setup-rye@v4
+      with:
+        enable-cache: true
+        cache-prefix: ${{ matrix.python-version }}
+    - name: Pin python-version ${{ matrix.python-version }}
+      run: rye pin ${{ matrix.python-version }}
+    - name: Sync dependencies
+      run: rye sync
+    - name: Lint
+      run: rye lint
