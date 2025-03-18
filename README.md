@@ -8,14 +8,14 @@ Programa em python para mesclar arquivos de texto baseado em [md-fuse](https://g
 
 Antes de executar pela primeira vez são necessárias algumas configurações:
 
-### Instalar o rye:
+### Instalar o uv:
 
-https://rye.astral.sh/
+https://docs.astral.sh/uv/
 
 ### Instalar as dependências:
 
-rye sync
+uv sync
 
 ## Execução
 
-Para executar crie o arquivo "7b.conf.json" seguindo o exemplo "7b.conf.example.json" e execute o comando "rye run fuse".
+Para executar crie o arquivo "md.conf.json" seguindo o exemplo "md.conf.example.json" e execute o comando "uv run fuse".
