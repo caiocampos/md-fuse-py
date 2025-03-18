@@ -10,14 +10,14 @@ jobs:
         python-version: ["3.12"]
     steps:
     - uses: actions/checkout@v4
-    - name: Install the latest version of rye
-      uses: eifinger/setup-rye@v4
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v5
       with:
         enable-cache: true
         cache-prefix: ${{ matrix.python-version }}
     - name: Pin python-version ${{ matrix.python-version }}
-      run: rye pin ${{ matrix.python-version }}
+      run: uv python pin ${{ matrix.python-version }}
     - name: Sync dependencies
-      run: rye sync
+      run: uv sync
     - name: Lint
-      run: rye lint
+      run: uvx ruff check
