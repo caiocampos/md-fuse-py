@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/github/license/caiocampos/md-fuse-py.svg)](LICENSE)
 
-Programa em python para mesclar arquivos de texto baseado em [md-fuse](https://github.com/caiocampos/md-fuse)
+Programa em Python para montar arquivos markdown para diversas línguas. Baseado em [md-fuse](https://github.com/caiocampos/md-fuse)
 
 ## Instalação
 
