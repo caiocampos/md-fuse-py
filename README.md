@@ -19,3 +19,5 @@ uv sync
 ## Execução
 
 Para executar crie o arquivo "md.conf.json" seguindo o exemplo "md.conf.example.json" e execute o comando "uv run fuse".
+
+Para um exemplo complexo acesse https://github.com/caiocampos/readme-base
