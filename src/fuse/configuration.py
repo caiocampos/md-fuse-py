@@ -79,11 +79,13 @@ class Conf:
         self,
         input_folder: str,
         output_folder: str,
+        dictionary_inputs: list[str],
         template_files: list[TemplateFileConf],
         files: list[FileConf],
     ):
         self.input_folder = input_folder
         self.output_folder = output_folder
+        self.dictionary_inputs = dictionary_inputs
         self.template_files = template_files
         self.files = files
 
@@ -105,6 +107,7 @@ def parse(config_json: dict) -> Conf:
     conf = Conf(
         config_json.get("input_folder") or "",
         config_json.get("output_folder") or "",
+        config_json.get("dictionary_inputs") or [],
         [],
         [],
     )

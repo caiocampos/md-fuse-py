@@ -3,6 +3,7 @@ Módulo para processamento dos arquivos de entrada e saída
 """
 
 import os
+import json
 from .configuration import TemplateFileParametersConf
 
 
@@ -14,6 +15,21 @@ def parse_folder(folder: str) -> str:
         return folder
 
     return folder + os.path.sep
+
+
+def read_dictionary_inputs(folder: str, path: str) -> dict[str, str] | None:
+    """
+    Função para ler os arquivos json que vão alimentar o dicionário
+    """
+    full_path = parse_folder(folder) + path
+    try:
+        with open(full_path, "r", encoding="utf-8") as dict_file:
+            map: dict = json.load(dict_file)
+            return map
+
+    except (OSError, EOFError) as ex:
+        print(f"Could not load the file {full_path} for read \nError: {ex}")
+        return None
 
 
 def generate_text(folder: str, inputs: list[str]) -> str:
@@ -36,7 +52,10 @@ def generate_text(folder: str, inputs: list[str]) -> str:
 
 
 def generate_from_template(
-    folder: str, path: str, parameters: list[TemplateFileParametersConf]
+    folder: str,
+    path: str,
+    parameters: list[TemplateFileParametersConf],
+    dictionary: dict[str, str],
 ) -> str:
     """
     Função para ler os arquivos de entrada e montar o texto a partir do template
@@ -53,10 +72,23 @@ def generate_from_template(
 
     for parameter in parameters:
         template = f"{{{{{parameter.name}}}}}"
-        prefix = "ENV_VAR:"
-        if parameter.value.startswith(prefix):
-            env_key = parameter.value[len(prefix) :]
-            env_value = os.getenv(env_key, "")
+        dict_prefix = "DICT_VAR:"
+        env_prefix = "ENV_VAR:"
+        if parameter.value.startswith(dict_prefix):
+            dict_key = parameter.value[len(dict_prefix) :]
+            dict_value = dictionary.get(dict_key)
+            if dict_value is None:
+                print(f'Could not find the variable "{dict_key}"')
+                dict_value = ""
+
+            res = res.replace(template, dict_value)
+        elif parameter.value.startswith(env_prefix):
+            env_key = parameter.value[len(env_prefix) :]
+            env_value = os.getenv(env_key)
+            if env_value is None:
+                print(f'Could not find the environment variable "{env_key}"')
+                env_value = ""
+
             res = res.replace(template, env_value)
         else:
             res = res.replace(template, parameter.value)
