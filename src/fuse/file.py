@@ -4,24 +4,24 @@ Módulo para processamento dos arquivos de entrada e saída
 
 import os
 import json
+from pathlib import Path
 from .configuration import TemplateFileParametersConf
 
 
-def parse_folder(folder: str) -> str:
+def merge_path(*parts: str) -> str:
     """
-    Função para corrigir possíveis problemas com formato de nome de pasta
+    Função para mesclar partes de um caminho
     """
-    if folder.endswith(os.path.sep):
-        return folder
-
-    return folder + os.path.sep
+    return str(Path(*(part for part in parts if part)))
 
 
-def read_dictionary_inputs(folder: str, path: str) -> dict[str, str] | None:
+def read_dictionary_inputs(
+    folder: str, subfolder: str, path: str
+) -> dict[str, str] | None:
     """
     Função para ler os arquivos json que vão alimentar o dicionário
     """
-    full_path = parse_folder(folder) + path
+    full_path = merge_path(folder, subfolder, path)
     try:
         with open(full_path, "r", encoding="utf-8") as dict_file:
             map: dict = json.load(dict_file)
@@ -39,7 +39,7 @@ def generate_text(folder: str, inputs: list[str]) -> str:
     res = ""
 
     for path in inputs:
-        full_path = parse_folder(folder) + path
+        full_path = merge_path(folder, path)
         try:
             with open(full_path, "r", encoding="utf-8") as file:
                 res += file.read()
@@ -62,7 +62,7 @@ def generate_from_template(
     """
     res = ""
 
-    full_path = parse_folder(folder) + path
+    full_path = merge_path(folder, path)
     try:
         with open(full_path, "r", encoding="utf-8") as file:
             res = file.read()
@@ -107,7 +107,7 @@ def write_text(folder: str, path: str, text: str) -> str:
             print(f"Could not create the folder {folder} \nError: {ex}")
             return ""
 
-    full_path = parse_folder(folder) + path
+    full_path = merge_path(folder, path)
 
     try:
         with open(full_path, "w", encoding="utf-8") as file:

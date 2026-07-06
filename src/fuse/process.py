@@ -20,7 +20,9 @@ def process(conf_file_path: str):
 
     for dict_conf in conf.dictionary_inputs:
         print(f"Processando {dict_conf}")
-        res = read_dictionary_inputs(conf.input_folder, dict_conf)
+        res = read_dictionary_inputs(
+            conf.input_folder, conf.dictionary_subfolder, dict_conf
+        )
         if res is not None:
             print("Arquivo lido com sucesso!")
         else:
