@@ -2,9 +2,10 @@
 Módulo para processamento dos arquivos de entrada e saída
 """
 
-import os
 import json
+import os
 from pathlib import Path
+
 from .configuration import TemplateFileParametersConf
 
 

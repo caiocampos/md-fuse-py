@@ -2,8 +2,8 @@
 Módulo para processamento do arquivo de configuração
 """
 
-from dataclasses import dataclass
 import json
+from dataclasses import dataclass
 
 
 @dataclass

@@ -1,4 +1,5 @@
-import fuse
 import sys
+
+import fuse
 
 sys.exit(fuse.main())

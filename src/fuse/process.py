@@ -4,10 +4,10 @@ Módulo para processar os dados e gerar o arquivo final
 
 from .configuration import load as config_load
 from .file import (
-    generate_text,
     generate_from_template,
-    write_text,
+    generate_text,
     read_dictionary_inputs,
+    write_text,
 )
 
 
